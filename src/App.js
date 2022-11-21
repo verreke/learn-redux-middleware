@@ -1,6 +1,5 @@
-import logo from './logo.svg';
 import './App.css';
-import PostListContainer from './containers/PostListContainer';
+/* import PostListContainer from './containers/PostListContainer'; */
 import { Route, Routes } from 'react-router-dom';
 import PostListPage from './pages/PostListPage';
 import PostPage from './pages/PostPage'
