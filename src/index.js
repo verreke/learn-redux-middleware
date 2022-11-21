@@ -5,19 +5,25 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createStore,applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import rootReducer from './modules';
+import rootReducer, { rootSaga } from './modules';
 import logger from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import ReduxThunk from 'redux-thunk';
 import { BrowserRouter } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { Router } from 'react-router-dom';
+import createSagaMiddleware from '@redux-saga/core';
 
 const customHistory = createBrowserHistory();
+const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(
-  ReduxThunk.withExtraArgument({ history: customHistory }), 
-  logger)));
+  ReduxThunk.withExtraArgument({ history: customHistory }),
+  sagaMiddleware,
+  logger))
+);
+
+sagaMiddleware.run(rootSaga);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
